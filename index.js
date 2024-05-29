@@ -42,7 +42,7 @@ async function run() {
 
     //middleware
     const verifyToken = (req,res,next) =>{
-      console.log('Inside Verify Token', req.headers.authorization);
+      //console.log('Inside Verify Token', req.headers);
       if(!req.headers.authorization){
         return res.status(401).send({message: 'Unauthorized Access'});
       }
@@ -73,7 +73,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/users/admin/email', verifyToken, async(req,res) =>{
+    app.get('/users/admin/:email', verifyToken, async(req,res) =>{
       const email = req.params.email;
       if( email !== req.decoded.email){
         return res.status(403).send({message: 'Forbidden Access'})
